@@ -17,7 +17,7 @@ public class CheckLoginDAO {
 		
 		try{
         	Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jsp", "root", "");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/jsp", "root", "");
             Statement sm = conn.createStatement();
             String sql = "SELECT * FROM login";
             

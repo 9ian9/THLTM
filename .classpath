@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="BaiTH1/src"/>
+	<classpathentry kind="src" path="BaiTH2/src"/>
+	<classpathentry kind="src" path="BaiTH3/src/main/java"/>
+	<classpathentry kind="lib" path="BaiTH2/libs/mysql-connector-j-8.2.0.jar"/>
+	<classpathentry kind="output" path="BaiTH2/bin"/>
+</classpath>

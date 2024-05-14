@@ -15,7 +15,7 @@ public class Connect {
     public Connect() throws SQLException {
     	try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/people", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jsp", "root", "");
             System.out.println("connect successfully!");
         } catch (Exception ex) {
             System.out.println("connect failure!");

@@ -38,10 +38,10 @@ CREATE TABLE `person` (
 --
 
 INSERT INTO `person` (`id`, `name`, `address`) VALUES
-(1, 'Anh', 'Hue'),
-(2, 'Giang', 'Ha Tinh'),
-(3, 'Luyn', 'Da Nang'),
-(4, 'Hanh', 'Đà Nẵng\r\n');
+(1, 'Dũng', 'Đà Nẵng'),
+(2, 'Tin', 'Quảng Nam'),
+(3, 'Khôi', 'Quảng Nam'),
+(4, 'Hải', 'Đà Nẵng\r\n');
 
 --
 -- Indexes for dumped tables

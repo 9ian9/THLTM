@@ -1,3 +1,5 @@
+package Server;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
 
-public class Bai1_Server extends JFrame {
+public class Bai1_UI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField port;
@@ -146,7 +148,7 @@ public class Bai1_Server extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Bai1_Server frame = new Bai1_Server();
+					Bai1_UI frame = new Bai1_UI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -158,7 +160,7 @@ public class Bai1_Server extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Bai1_Server() {
+	public Bai1_UI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 609, 376);
 		contentPane = new JPanel();

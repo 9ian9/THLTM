@@ -1,3 +1,5 @@
+package Server;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bai4_server {
+public class Bai4 {
 	private static List<ClientHandler> clients = new ArrayList<>();
 	
 	public static ArrayList<Person> selectAll() throws SQLException, ClassNotFoundException {

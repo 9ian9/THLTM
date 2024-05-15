@@ -62,7 +62,6 @@ public class CheckLoginServlet extends HttpServlet {
 		}catch ( ClassNotFoundException | SQLException | IOException e) {
 			e.printStackTrace();
 		}
-		doGet(request, response);
 	}
 
 }

@@ -1,5 +1,3 @@
-package model.DAO;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,7 +15,7 @@ public class CheckLoginDAO {
 		
 		try{
         	Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/jsp", "root", "");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jsp", "root", "");
             Statement sm = conn.createStatement();
             String sql = "SELECT * FROM login";
             
@@ -44,7 +42,7 @@ public class CheckLoginDAO {
 		
 		try{
         	Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/jsp", "root", "");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jsp", "root", "");
             Statement sm = conn.createStatement();
             String sql = "SELECT * FROM wife";
             

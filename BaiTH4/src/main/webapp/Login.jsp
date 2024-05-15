@@ -19,7 +19,7 @@
 	}
 	.login-form-wrapper {
 		background-color: navy;
-		padding : 10px;
+		padding : 20px;
 		border-radius: 10px;
 		display: flex;
 		flex-direction: column;

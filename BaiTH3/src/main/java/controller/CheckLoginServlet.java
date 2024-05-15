@@ -55,9 +55,9 @@ public class CheckLoginServlet extends HttpServlet {
 			}
 			else
 			{
-				destination = "/login.jsp";
-				RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
-				rd.forward(request, response);
+//				destination = "/login.jsp";
+//				RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
+//				rd.forward(request, response);
 			}
 		}catch ( ClassNotFoundException | SQLException | IOException e) {
 			e.printStackTrace();

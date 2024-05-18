@@ -1,5 +1,5 @@
 package Model.BO;
 
-public class AccountBO {
+public class TeacherBO {
 
 }

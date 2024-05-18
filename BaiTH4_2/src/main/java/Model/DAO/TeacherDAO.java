@@ -1,5 +1,5 @@
 package Model.DAO;
 
-public class AccountDAO {
+public class TeacherDAO {
 
 }

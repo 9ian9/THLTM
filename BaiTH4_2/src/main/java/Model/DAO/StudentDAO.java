@@ -22,7 +22,7 @@ public class StudentDAO {
 
 		// Bước 3 : Thực hiện câu lệnh truy vấn
 		Statement stmt = Conn.createStatement();
-		String sqlCommand = "SELECT * FROM students";
+		String sqlCommand = "SELECT * FROM students where accountId = " + accountId;
 		ResultSet rs = stmt.executeQuery(sqlCommand);
 
 		// Bước 4 : Xem thong tin cua bang

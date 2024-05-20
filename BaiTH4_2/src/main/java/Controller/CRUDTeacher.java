@@ -96,7 +96,8 @@ public class CRUDTeacher extends HttpServlet {
 				teacherBO.update(new Teacher(id, name, faculityId, email));
 			}
 		
-
+			
+			System.out.println(123);
 			ArrayList<Teacher> listTeacher = teacherBO.getAllTeacherByFaculityId(faculityId);
 			
 			request.setAttribute("listTeacher", listTeacher);

@@ -107,13 +107,12 @@ public class AccountDAO {
 		
 		Connection con = JDBCUtil.getConnection();
 		
-		String command = "UPDATE accounts SET username = ?, password = ?, role = ? WHERE id = ?";
+		String command = "UPDATE accounts SET username = ?, password = ? WHERE id = ?";
 		PreparedStatement psm = con.prepareStatement(command);
 			
-		psm.setInt(4, t.getId());
+		psm.setInt(3, t.getId());
 		psm.setString(1, t.getUsername());
 		psm.setString(2, t.getPassword());
-		psm.setInt(3, t.getRole());
 	
 		int executedRow = psm.executeUpdate(); 
 		
@@ -147,7 +146,7 @@ public class AccountDAO {
 		return result;
 	}
 	
-	public boolean checkAccountName(String name) throws SQLException
+	public boolean checkAccountName(String name, int accountId) throws SQLException
 	{
 		boolean result = false;
 		
@@ -155,7 +154,15 @@ public class AccountDAO {
 		
 		//Bước 3 : Thực hiện câu lệnh truy vấn 
 		Statement stmt = Conn.createStatement();
-		String sqlCommand = "SELECT * FROM accounts ";
+		String sqlCommand = "";
+		if(accountId == -1)
+		{
+			sqlCommand = "SELECT * FROM accounts ";
+		}
+		else
+		{
+			sqlCommand = "SELECT * FROM accounts WHERE id <> " + accountId;
+		}
 		ResultSet rs = stmt.executeQuery(sqlCommand); 
 		
 		//Bước 4 : Xem thong tin cua bang

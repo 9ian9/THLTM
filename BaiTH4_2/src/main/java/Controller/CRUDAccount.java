@@ -76,7 +76,7 @@ public class CRUDAccount extends HttpServlet {
 				String username = request.getParameter("username");
 				String password = request.getParameter("password");
 				
-				if(accountBO.checkAccountName(username))
+				if(accountBO.checkAccountName(username, -1))
 				{
 					request.setAttribute("mode", mode);
 					request.setAttribute("updateAccount", new Account(-1, username, password, 1));
@@ -95,7 +95,7 @@ public class CRUDAccount extends HttpServlet {
 				String password = request.getParameter("password");
 				int id = Integer.parseInt(request.getParameter("id") +"");
 				
-				if(accountBO.checkAccountName(username))
+				if(accountBO.checkAccountName(username, id))
 				{
 					request.setAttribute("mode", mode);
 					request.setAttribute("updateAccount", new Account(id, username, password, 1));

@@ -14,8 +14,10 @@ import javax.servlet.http.HttpSession;
 
 import Model.BEAN.Account;
 import Model.BEAN.Faculity;
+import Model.BEAN.Grade;
 import Model.BEAN.Student;
 import Model.BO.AccountBO;
+import Model.BO.ClassBO;
 import Model.BO.FaculityBO;
 import Model.BO.StudentBO;
 
@@ -28,6 +30,7 @@ public class CheckLoginServlet extends HttpServlet {
 	AccountBO accountBO = new AccountBO();
 	FaculityBO faculityBO = new FaculityBO();
 	StudentBO studentBO = new StudentBO();
+	ClassBO classBO = new ClassBO();
 	
     public CheckLoginServlet() {
         // TODO Auto-generated constructor stub
@@ -61,10 +64,17 @@ public class CheckLoginServlet extends HttpServlet {
 				}
 				else
 				{
+					System.out.println(checkAccount.getId());
 					Student studentInfo = studentBO.getStudentInfoByAccountId(checkAccount.getId());
 					
-					request.setAttribute("accountInfo", checkAccount);
+					Grade classInfo = classBO.getClassById(studentInfo.getClassId());
+					Faculity faculityInfo = faculityBO.getFaculityById(classInfo.getFaculityId());
+					Account accountInfo = accountBO.getAccountById(studentInfo.getAccountId());
+					
+					request.setAttribute("accountInfo", accountInfo);
 					request.setAttribute("studentInfo", studentInfo);
+					request.setAttribute("classInfo", classInfo);
+					request.setAttribute("faculityInfo", faculityInfo);
 					
 					destination = "/Student/homepage.jsp";
 					RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);

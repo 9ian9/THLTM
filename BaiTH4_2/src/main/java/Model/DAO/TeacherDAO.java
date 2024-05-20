@@ -24,7 +24,6 @@ public class TeacherDAO {
 	    psm.setInt(2, newItem.getFaculityId());
 	    psm.setString(3, newItem.getEmail());
 	    
-
 	    int executedRow = psm.executeUpdate();
 
 	    int generatedId = -1; // Default value if ID is not generated

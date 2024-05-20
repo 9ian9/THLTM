@@ -16,11 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Model.BEAN.Account;
+import Model.BEAN.Faculity;
 import Model.BEAN.Grade;
 import Model.BEAN.Student;
 import Model.BEAN.Teacher;
 import Model.BO.AccountBO;
 import Model.BO.ClassBO;
+import Model.BO.FaculityBO;
 import Model.BO.StudentBO;
 
 /**
@@ -32,6 +34,7 @@ public class CRUDStudent extends HttpServlet {
 	private StudentBO studentBO = new StudentBO();
 	private ClassBO classBO = new ClassBO();
 	private AccountBO accountBO = new AccountBO();
+	private FaculityBO faculityBO = new FaculityBO();
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Định dạng của chuỗi ngày
 
 	public CRUDStudent() {
@@ -55,13 +58,15 @@ public class CRUDStudent extends HttpServlet {
 			else if(mode == 3)
 			{
 				int id = Integer.parseInt(request.getParameter("id") +"");
-			
+				String isStudent = request.getParameter("isStudent") + "";
+				
 				Student updateStudent = studentBO.getStudentById(id);
 				
 				request.setAttribute("mode", mode);
 				request.setAttribute("updateStudent", updateStudent);
 				request.setAttribute("updateAccount", accountBO.getAccountById(updateStudent.getAccountId()));
 				request.setAttribute("classInfo", classBO.getClassById(updateStudent.getClassId()));
+				request.setAttribute("isStudent", isStudent);
 				
 				String destination = "/Admin/editStudent.jsp";
 				RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
@@ -104,10 +109,11 @@ public class CRUDStudent extends HttpServlet {
 			String accountUserName = request.getParameter("username");
 			String accountPassword = request.getParameter("password");
 			Grade classInfo = classBO.getClassById(classId);
+			String isStudent = request.getParameter("isStudent");
 			
 			if(mode == 1)
 			{
-				if(accountBO.checkAccountName(accountUserName))
+				if(accountBO.checkAccountName(accountUserName, -1))
 				{
 					ArrayList<Student> listStudent = studentBO.getAllStudentByClassId(classId);
 					
@@ -119,7 +125,7 @@ public class CRUDStudent extends HttpServlet {
 					request.setAttribute("errorMessage", "this account's username are already existed, please choose another username");
 					request.setAttribute("mode", 1);
 					
-					String destination = "/Admin/listStudent.jsp";
+					String destination = "/Admin/editStudent.jsp";
 					RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
 					rd.forward(request, response);
 				}
@@ -132,7 +138,7 @@ public class CRUDStudent extends HttpServlet {
 				int id = Integer.parseInt(request.getParameter("id"));
 				Student studentInfo = studentBO.getStudentById(id);
 			
-				if(accountBO.checkAccountName(accountUserName))
+				if( accountBO.checkAccountName(accountUserName, studentInfo.getAccountId()))
 				{
 					ArrayList<Student> listStudent = studentBO.getAllStudentByClassId(classId);
 					
@@ -142,9 +148,10 @@ public class CRUDStudent extends HttpServlet {
 					request.setAttribute("updateStudent", new Student(id, name, birthday, gender, tel, email, yearStudent, classId, studentInfo.getAccountId()));
 					request.setAttribute("updateAccount", new Account(studentInfo.getAccountId(), accountUserName, accountPassword, 2));
 					request.setAttribute("errorMessage", "this account's username are already existed, please choose another username");
-					request.setAttribute("mode", 1);
+					request.setAttribute("mode", 3);
+					request.setAttribute("isStudent", isStudent);
 					
-					String destination = "/Admin/listStudent.jsp";
+					String destination = "/Admin/editStudent.jsp";
 					RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
 					rd.forward(request, response);
 				}
@@ -153,15 +160,36 @@ public class CRUDStudent extends HttpServlet {
 				studentBO.update(new Student(id, name, birthday, gender, tel, email, yearStudent, classId, studentInfo.getAccountId()));
 			}
 			
-			ArrayList<Student> listStudent = studentBO.getAllStudentByClassId(classId);
-			
-			request.setAttribute("listStudent", listStudent);
-			request.setAttribute("faculityId", classInfo.getFaculityId());
-			request.setAttribute("classInfo", classBO.getClassById(classId));
-			
-			String destination = "/Admin/listStudent.jsp";
-			RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
-			rd.forward(request, response);
+			if(isStudent.equals("true"))
+			{
+				int id = Integer.parseInt(request.getParameter("id"));
+				Student studentInfo = studentBO.getStudentById(id);
+				
+				classInfo = classBO.getClassById(studentInfo.getClassId());
+				Faculity faculityInfo = faculityBO.getFaculityById(classInfo.getFaculityId());
+				Account accountInfo = accountBO.getAccountById(studentInfo.getAccountId());
+				
+				request.setAttribute("accountInfo", accountInfo);
+				request.setAttribute("studentInfo", studentInfo);
+				request.setAttribute("classInfo", classInfo);
+				request.setAttribute("faculityInfo", faculityInfo);
+				
+				String destination = "/Student/homepage.jsp";
+				RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
+				rd.forward(request, response);
+			}
+			else
+			{
+				ArrayList<Student> listStudent = studentBO.getAllStudentByClassId(classId);
+				
+				request.setAttribute("listStudent", listStudent);
+				request.setAttribute("faculityId", classInfo.getFaculityId());
+				request.setAttribute("classInfo", classBO.getClassById(classId));
+				
+				String destination = "/Admin/listStudent.jsp";
+				RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
+				rd.forward(request, response);
+			}
 		
 		}
 		catch (ClassNotFoundException | SQLException e) {

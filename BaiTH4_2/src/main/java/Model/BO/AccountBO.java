@@ -38,8 +38,8 @@ public class AccountBO {
 		return accountDAO.getAccountById(id);
 	}
 	
-	public boolean checkAccountName(String name) throws SQLException
+	public boolean checkAccountName(String name, int accountId) throws SQLException
 	{
-		return accountDAO.checkAccountName(name);
+		return accountDAO.checkAccountName(name, accountId);
 	}
 }

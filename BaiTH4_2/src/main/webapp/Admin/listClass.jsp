@@ -1,17 +1,18 @@
 <%@page import="Model.BEAN.Account"%>
 <%@page import="Model.BEAN.Faculity"%>
+<%@page import="Model.BEAN.Grade"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="ISO-8859-1">
-    <title>Welcome Admin</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://kit.fontawesome.com/fd6bf6bce9.js" crossorigin="anonymous">
-    <style>
-        body {
+<meta charset="ISO-8859-1">
+<title>Class List</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://kit.fontawesome.com/fd6bf6bce9.css" crossorigin="anonymous">
+<style>
+    body {
         font-family: Arial, sans-serif;
         margin: 20px;
     }
@@ -46,22 +47,24 @@
         align-items: center;
         margin-bottom: 20px;
     }
-    </style>
+</style>
 </head>
 <body>
     <%
-    ArrayList<Faculity> listFaculity = (ArrayList<Faculity>) request.getAttribute("listFaculity");
-    Account accountInfo = (Account) session.getAttribute("accountInfo");
+        ArrayList<Grade> listClass = (ArrayList<Grade>) request.getAttribute("listClass");
+        Faculity faculityInfo = (Faculity) request.getAttribute("faculity");
+        Account accountInfo = (Account) session.getAttribute("accountInfo");
     %>
+    
     <div class="container">
-        <h1>Welcome, admin <%=accountInfo.getUsername()%></h1>
-        <div class='action-buttons'>
-        	<a href="Login.jsp" class="btn btn-back mb-3"><i class="fa-solid fa-right-from-bracket fa-rotate-180"></i></a>
-            <a href="CRUDFaculity?mode=1" class="btn btn-back mb-3"><i class="fa-solid fa-plus"></i></a>
-            <a href="ViewListAccount" class="btn btn-back mb-3">View list Account</a>
+    	<h1>Welcome, admin "<%=accountInfo.getUsername()%>"</h1>
+	    <div class='action-buttons'>	
+	    	<a href="ViewListFaculity" class="btn btn-back mb-3" ><i class="fa-solid fa-backward"></i></a>
+	        <a href="CRUDClass?mode=1&faculityId=<%=faculityInfo.getId() %>" class="btn btn-back mb-3"><i class="fa-solid fa-plus"></i></a>
         </div>
-        <%
-            if (listFaculity == null || listFaculity.isEmpty()) {
+        <h3>List classes of "<%= faculityInfo.getName() %>" Faculty</h3>
+                <%
+            if (listClass == null || listClass.isEmpty()) {
         %>
             <div class="alert alert-warning" role="alert">
                 No data
@@ -74,30 +77,28 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Classes</th>
-                    <th>Teachers</th>
+                    <th>Students</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
                 <%
-                for(Faculity item : listFaculity)
-                {
+                    for (Grade item : listClass) {
                 %>
                 <tr>
-                    <td><%=item.getId() %></td>
-                    <td><%=item.getName() %></td>
-                    <td><a href="ViewListClass?faculityId=<%= item.getId()%>" class="btn btn-info">List Classes</a></td>
-                    <td><a href="ViewListTeacher?faculityId=<%=item.getId()%>" class="btn btn-info">List Teachers</a></td>
-                    <td><a href="CRUDFaculity?mode=3&id=<%=item.getId()%>" class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i></a></td>
-                    <td><a href="CRUDFaculity?mode=4&id=<%=item.getId()%>" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+                    <td><%= item.getId() %></td>
+                    <td><%= item.getName() %></td>
+                    <td><a href="ViewListStudent?classId=<%= item.getId() %>&faculityId=<%=faculityInfo.getId() %>" class="btn btn-info">List Students</a></td>
+                    <td><a href="CRUDClass?mode=3&id=<%= item.getId() %>&faculityId=<%=faculityInfo.getId() %>" class="btn btn-warning"><i class="fa fa-pen-to-square"></i></a></td>
+                    <td><a href="CRUDClass?mode=4&id=<%= item.getId() %>&faculityId=<%=faculityInfo.getId() %>" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
                 </tr>
-                <%} %>
+                <% } %>
             </tbody>
         </table>
         <%} %>
     </div>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

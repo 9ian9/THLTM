@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Model.BEAN.Account;
 import Model.BEAN.Faculity;
@@ -42,6 +43,7 @@ public class CheckLoginServlet extends HttpServlet {
 		String destination = null;
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		HttpSession session = request.getSession();
 		
 		try {
 			Account checkAccount = accountBO.checkAccount(username, password);
@@ -51,7 +53,7 @@ public class CheckLoginServlet extends HttpServlet {
 					ArrayList<Faculity> listFaculity = faculityBO.getAllFaculity();
 					
 					request.setAttribute("listFaculity", listFaculity);
-					request.setAttribute("accountInfo", checkAccount);
+					session.setAttribute("accountInfo", checkAccount);
 					
 					destination = "/Admin/homepage.jsp";
 					RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
